@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Platformer.dir/main.cpp.o"
-  "CMakeFiles/Platformer.dir/src/shape.cpp.o"
+  "CMakeFiles/Platformer.dir/main.cpp.o.d"
+  "CMakeFiles/Platformer.dir/src/Shape.cpp.o"
+  "CMakeFiles/Platformer.dir/src/Shape.cpp.o.d"
   "Platformer"
   "Platformer.pdb"
 )
