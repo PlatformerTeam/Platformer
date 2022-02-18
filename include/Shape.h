@@ -38,13 +38,14 @@ namespace pe {
         Type t;
         std::vector<std::shared_ptr<std::vector<std::shared_ptr<pe::Shape>>>> layouts;
         bool movable = true;
+        bool controllerMovement = false;
     };
 
     struct Rectangle : Shape {
         sf::Color c;
 
         Rectangle(sf::Vector2<float> mid_pos, int width, int height, std::vector<std::shared_ptr<std::vector<std::shared_ptr<pe::Shape>>>> layouts,
-                  bool movable = false);
+                  bool controllerMovement = false, bool movable = true);
 
         sf::Vector2<float> gravity_center() override;
 
@@ -59,6 +60,7 @@ namespace pe {
         void before_drawing_movement() override;
 
         void move(sf::Vector2<float> v) override;
+        void applyForce();
 
         void keyboard_controller();
 
@@ -67,6 +69,8 @@ namespace pe {
         float getHeight();
 
         float getMass();
+
+        float getInvMass();
 
     private:
         sf::Clock clock;
@@ -77,8 +81,11 @@ namespace pe {
         sf::Vector2<float> mid_pos;
         float width;
         float height;
-        float restitution = 1;
+        float restitution = 0.3;
+        float staticFriction = 0.3;
+        float dynamicFriction = 0.1;
         sf::Vector2<float> velocity;
+        sf::Vector2<float> resultForce;
 
         // Угловые компоненты
         float orientation; // радианы

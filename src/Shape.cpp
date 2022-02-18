@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cmath>
+#include <cassert>
 #include "../include/Shape.h"
 #include "algorithm"
 
@@ -26,7 +28,7 @@ namespace pe {
     }
 
     float sign(float a) {
-        if (a >= 0) return 1;
+        if (a > 0) return 1;
         return -1;
     }
 
@@ -47,6 +49,15 @@ namespace pe {
 
     sf::Vector2<float> CrossProduct(float s, const sf::Vector2<float> &a) {
         return {-s * a.y, s * a.x};
+    }
+
+    void normalize(sf::Vector2<float> &v, float length){
+        if(v_mod(v) < 0.001) return;
+        v *= length * FastInvSqrt(v_mod(v));
+    }
+
+    float Pythagore(float a, float b){
+        return std::sqrt(a * a + b * b);
     }
 
 
@@ -75,10 +86,11 @@ namespace pe {
 
     Rectangle::Rectangle(sf::Vector2<float> mid_pos, int width, int height,
                          std::vector<std::shared_ptr<std::vector<std::shared_ptr<pe::Shape>>>> layouts,
-                         bool movable) : mid_pos(mid_pos), width(width), height(height) {
+                         bool controllerMovement, bool movable) : mid_pos(mid_pos), width(width), height(height) {
         t = sRectangle;
         c = sf::Color(0, 255, 0);
         this->layouts = layouts;
+        this->controllerMovement = controllerMovement;
         this->movable = movable;
     }
 
@@ -126,18 +138,55 @@ namespace pe {
             // Не выполняем вычислений, если скорости разделены
             if (velAlongNormal > 0)
                 return;
+            if(velAlongNormal > -1 && y_overlap < x_overlap) {
+                if(movable){
+                    this->mid_pos.y -= y_overlap;
+                }
+                return;
+            }
 
             // Вычисляем упругость
             float e = std::min(restitution, r1->restitution);
 
             // Вычисляем скаляр импульса силы
             float j = -(1 + e) * velAlongNormal;
-            j /= 1 / getMass() + 1 / r1->getMass();
+            j /= getInvMass() + r1->getInvMass();
 
             // Прикладываем импульс силы
             sf::Vector2<float> impulse = j * normal;
-            velocity -= 1 / getMass() * impulse;
-            r1->velocity += 1 / r1->getMass() * impulse;
+            velocity -= getInvMass() * impulse;
+            r1->velocity += r1->getInvMass() * impulse;
+            //////////////////////////////////////
+            // Трение
+
+            // Вычисляем касательный вектор
+            sf::Vector2<float> tangent = rv - DotProduct( rv, normal ) * normal;
+            if(v_mod(tangent) > 1)
+                std::cout << "";
+            normalize(tangent, 1.0f);
+
+            // Вычисляем величину, прилагаемую вдоль вектора трения
+            float jt = -DotProduct( rv, tangent);
+            jt = jt / (getInvMass() + r1->getInvMass());
+
+            // A^2 + B^2 = C^2, вычисляем C для заданных A и B
+            // Используем для аппроксимации мю для заданных коэффициентов трения каждого тела
+            float mu = Pythagore(staticFriction, r1->staticFriction);
+
+            // Ограничиваем величину трения и создаём вектор импульса силы
+            sf::Vector2<float> frictionImpulse;
+            if(std::abs( jt ) < j * mu)
+                frictionImpulse = jt * tangent;
+            else {
+                float d_mu = Pythagore( dynamicFriction, r1->dynamicFriction);
+                frictionImpulse = -j * tangent * d_mu;
+            }
+            if(abs(frictionImpulse.x) > 10000000 && movable)
+                std::cout << "";
+
+            // Прикладываем
+            velocity -= getInvMass() * frictionImpulse;
+            r1->velocity += r1->getInvMass() * frictionImpulse;
         }
     }
 
@@ -160,7 +209,7 @@ namespace pe {
             if (vertices[0].y > vertices1[1].y || vertices[1].y < vertices1[0].y) {
                 return false;
             }
-            c = sf::Color(255, 0, 0);
+            //c = sf::Color(255, 0, 0);
             collision_resolution(b1);
             return true;
         }
@@ -180,9 +229,11 @@ namespace pe {
     }
 
     void Rectangle::before_drawing_movement() {
+        // применяем силы
+        applyForce();
         // двигаемся
         move(velocity);
-        if (movable) {
+        if (controllerMovement) {
             keyboard_controller();
         }
         // проверяем наличие коллизий
@@ -201,8 +252,18 @@ namespace pe {
         window.draw(rect);
     }
 
+
     void Rectangle::move(sf::Vector2<float> v) {
-        mid_pos += v * dt;
+        sf::Vector2<float> test = v * dt;
+        //if(abs(velocity.x) < 5) velocity.x = 0;
+        //if(abs(velocity.y) < 3) velocity.y = 0;
+        //assert(abs(velocity.x) < 10000);
+        mid_pos += velocity * dt;
+    }
+
+    void Rectangle::applyForce() {
+        resultForce = {0, 700.0f * getMass()};
+        if(!controllerMovement) velocity += resultForce * getInvMass() * dt;
     }
 
     void Rectangle::keyboard_controller() {
@@ -238,7 +299,15 @@ namespace pe {
     }
 
     float Rectangle::getMass() {
+        if(!movable) return 0;
         return getHeight() * getWidth();
     }
+
+    float Rectangle::getInvMass() {
+        if(getMass() == 0) return 0;
+        return 1 / getMass();
+    }
+
+
 
 } // namespace pe

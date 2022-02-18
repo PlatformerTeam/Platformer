@@ -8,7 +8,7 @@ inline float dt;
 int main() {
     int w = 200, h = 200;
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(1500, 1500), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(1500, 1000), "SFML window");
     sf::Clock clock;
     float lastTime = 0;
     std::shared_ptr<std::vector<std::shared_ptr<pe::Shape>>> main_layout_level =
@@ -21,18 +21,21 @@ int main() {
                                                                  200, 200,
                                                                  rect_layouts));
     main_layout_level->push_back(rect);
-    main_layout_level->push_back(std::make_shared<pe::Rectangle>(sf::Vector2<float>(800.0, 800.0),
+    main_layout_level->push_back(std::make_shared<pe::Rectangle>(sf::Vector2<float>(800.0, 700.0),
                                                                  50, 50,
                                                                  rect_layouts));
-    main_layout_level->push_back(std::make_shared<pe::Rectangle>(sf::Vector2<float>(900.0, 800.0),
+    main_layout_level->push_back(std::make_shared<pe::Rectangle>(sf::Vector2<float>(900.0, 700.0),
                                                                  50, 100,
                                                                  rect_layouts));
-    main_layout_level->push_back(std::make_shared<pe::Rectangle>(sf::Vector2<float>(1000.0, 800.0),
+    main_layout_level->push_back(std::make_shared<pe::Rectangle>(sf::Vector2<float>(1000.0, 700.0),
                                                                  50, 200,
                                                                  rect_layouts));
-    main_layout_level->push_back(std::make_shared<pe::Rectangle>(sf::Vector2<float>(1100.0, 800.0),
-                                                                 50, 400,
+    main_layout_level->push_back(std::make_shared<pe::Rectangle>(sf::Vector2<float>(1100.0, 700.0),
+                                                                 50, 300,
                                                                  rect_layouts));
+    main_layout_level->push_back(std::make_shared<pe::Rectangle>(sf::Vector2<float>(700.0, 1000.0),
+                                                                 1200, 100,
+                                                                 rect_layouts, false, false));
     while (window.isOpen()) {
         sf::Event event{};
         while (window.pollEvent(event)) {
