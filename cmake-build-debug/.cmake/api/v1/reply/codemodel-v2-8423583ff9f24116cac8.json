@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/mirong/CLionProjects/hse/3 sem/projects/Rep/PlatformerRep/Platformer/cmake-build-debug",
-		"source" : "/home/mirong/CLionProjects/hse/3 sem/projects/Rep/PlatformerRep/Platformer"
+		"build" : "/home/mirong/CLionProjects/hse/3 sem/projects/platformer/Platformer/cmake-build-debug",
+		"source" : "/home/mirong/CLionProjects/hse/3 sem/projects/platformer/Platformer"
 	},
 	"version" : 
 	{

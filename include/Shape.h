@@ -37,13 +37,13 @@ namespace pe {
     protected:
         Type t;
         std::vector<std::shared_ptr<std::vector<std::shared_ptr<pe::Shape>>>> layouts;
-        bool movable;
+        bool movable = true;
     };
 
     struct Rectangle : Shape {
         sf::Color c;
 
-        Rectangle(sf::Vector2<float> p1, sf::Vector2<float> p2, std::vector<std::shared_ptr<std::vector<std::shared_ptr<pe::Shape>>>> layouts,
+        Rectangle(sf::Vector2<float> mid_pos, int width, int height, std::vector<std::shared_ptr<std::vector<std::shared_ptr<pe::Shape>>>> layouts,
                   bool movable = false);
 
         sf::Vector2<float> gravity_center() override;
@@ -69,12 +69,21 @@ namespace pe {
         float getMass();
 
     private:
+        sf::Clock clock;
+        float lastTime;
         // *----
         // |   |
         // ----*
-        std::vector<sf::Vector2<float>> vertices;
-        float restitution = 0.5;
+        sf::Vector2<float> mid_pos;
+        float width;
+        float height;
+        float restitution = 1;
         sf::Vector2<float> velocity;
+
+        // Угловые компоненты
+        float orientation; // радианы
+        float angularVelocity;
+        float torque; // крутящий момент
     };
 
 

@@ -21,11 +21,6 @@
 		{
 			"isCMake" : true,
 			"isExternal" : true,
-			"path" : "/snap/clion/180/bin/cmake/linux/share/cmake-3.21/Modules/CMakeUnixFindMake.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
 			"path" : "/snap/clion/180/bin/cmake/linux/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake"
 		},
 		{
@@ -529,21 +524,6 @@
 		{
 			"isCMake" : true,
 			"isExternal" : true,
-			"path" : "/snap/clion/180/bin/cmake/linux/share/cmake-3.21/Modules/CMakeFindCodeBlocks.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/snap/clion/180/bin/cmake/linux/share/cmake-3.21/Modules/CMakeExtraGeneratorDetermineCompilerMacrosAndIncludeDirs.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/snap/clion/180/bin/cmake/linux/share/cmake-3.21/Modules/ProcessorCount.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
 			"path" : "/snap/clion/180/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCInformation.cmake"
 		},
 		{
@@ -758,8 +738,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/home/mirong/CLionProjects/hse/3 sem/projects/Rep/PlatformerRep/Platformer/cmake-build-debug",
-		"source" : "/home/mirong/CLionProjects/hse/3 sem/projects/Rep/PlatformerRep/Platformer"
+		"build" : "/home/mirong/CLionProjects/hse/3 sem/projects/platformer/Platformer/cmake-build-debug",
+		"source" : "/home/mirong/CLionProjects/hse/3 sem/projects/platformer/Platformer"
 	},
 	"version" : 
 	{
