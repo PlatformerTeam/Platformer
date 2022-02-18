@@ -1,7 +1,4 @@
 # ninja log v5
-0	640	1645204367361518084	CMakeFiles/Platformer.dir/src/Shape.cpp.o	64222c1e534512d0
-0	686	1645204367405520060	CMakeFiles/Platformer.dir/main.cpp.o	c5c1ecfe34dfe52
-686	744	1645204367461522576	Platformer	2d4b4ff60e227935
-1	616	1645204445737185028	CMakeFiles/Platformer.dir/src/Shape.cpp.o	64222c1e534512d0
-0	685	1645204445805188314	CMakeFiles/Platformer.dir/main.cpp.o	c5c1ecfe34dfe52
-685	740	1645204445861191019	Platformer	2d4b4ff60e227935
+0	622	1645214722018925717	CMakeFiles/Platformer.dir/src/Shape.cpp.o	64222c1e534512d0
+0	680	1645214722078926762	CMakeFiles/Platformer.dir/main.cpp.o	c5c1ecfe34dfe52
+680	738	1645214722134927737	Platformer	2d4b4ff60e227935

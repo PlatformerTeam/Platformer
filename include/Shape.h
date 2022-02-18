@@ -37,7 +37,7 @@ namespace pe {
     protected:
         Type t;
         std::vector<std::shared_ptr<std::vector<std::shared_ptr<pe::Shape>>>> layouts;
-        bool movable{};
+        bool movable = true;
     };
 
     struct Rectangle : Shape {

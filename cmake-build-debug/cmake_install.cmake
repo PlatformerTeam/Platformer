@@ -1,4 +1,4 @@
-# Install script for directory: /home/mirong/CLionProjects/hse/3 sem/projects/Rep/PlatformerRep/Platformer
+# Install script for directory: /home/mirong/CLionProjects/hse/3 sem/projects/platformer/Platformer
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/mirong/CLionProjects/hse/3 sem/projects/Rep/PlatformerRep/Platformer/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/mirong/CLionProjects/hse/3 sem/projects/platformer/Platformer/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
